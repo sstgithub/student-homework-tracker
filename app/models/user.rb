@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :comments
-  has_many :assignments
-  has_many :homeworks
-  has_many :cohorts, through: :enrollment
+  has_many :submissions
+  has_many :enrollments
+  has_many :cohorts, through: :enrollments
 
 end

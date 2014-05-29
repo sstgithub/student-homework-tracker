@@ -10,8 +10,6 @@ class Ability
       elsif user.role == "normal"
         can :read, :all
       else
-        can :read, :all
-        cannot :read, :all
       end
     #
     # The first argument to `can` is the action you are giving the user
