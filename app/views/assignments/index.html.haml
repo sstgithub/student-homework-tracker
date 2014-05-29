@@ -1,0 +1,22 @@
+- @assignments.each do |a|
+	= link_to a.assignment_name, a
+
+- if can? :create, Assignment
+	= form_for Assignment.new do |f|
+		= f.label :assignment_name
+		= f.text_field :assignment_name
+		= f.label :description
+		= f.text_field :description
+		= f.label :due_date
+		= f.date_select :due_date
+		= f.submit
+
+
+- if cannot? :read, Assignment
+	= link_to "Register now!", new_user_registration_path
+%br
+- if cannot? :read, Assignment
+	= link_to "Sign in", new_user_session_path
+%br
+- if can? :read, Assignment
+	= link_to "Sign out", destroy_user_session_path, method: :delete
