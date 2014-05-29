@@ -9,7 +9,14 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path, :alert => exception.message
   end
 
-
+  def after_sign_in_path_for(user)
+  	# if user.sign_in_count == 1
+  	if user.cohorts.first == nil
+  		cohort_index_path
+  	else
+  		root_path
+  	end
+  end
 
   protected
 
