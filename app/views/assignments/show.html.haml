@@ -1,0 +1,14 @@
+%h1 
+	= @assignment.assignment_name
+
+%h3 
+	= @assignment.description
+%br
+%h3 
+	= @assignment.due_date.strftime("%b %d, %Y")
+
+- if can? :update, @assignment
+	= link_to "Update assignment", edit_assignment_path(@assignment)
+
+- if can? :destroy, @assignment
+	= link_to "Delete assignment", assignment_path(@assignment), method: :delete
