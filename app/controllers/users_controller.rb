@@ -2,10 +2,12 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
+		@cohort = current_user.cohorts.first
+		@assignments = @cohort.assignments.all
 	end
 
 	def create
-		@cohort = current_user.cohorts.build(params[:cohort_params])
+		@cohort = current_user.cohorts.build(params[params.require(:cohort).permit!])
 	end
 
 	private

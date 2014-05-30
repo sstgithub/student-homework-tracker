@@ -1,16 +1,9 @@
 - if can? :create, Assignment
 	%h1 This will be the checkbox form for admins to add locations and cohorts
-	= form_for @cohort do |c|
-		= f.label :name
-		= f.text_field :name
-		%br
-		= f.label :start_date
-		= f.date_select :start_date
-		%br
-		= f.label :end_date
-		= f.date_select :end_date
-		%br
-		= f.submit
+	- @assignments.each do |a|
+		= a.assignment_name
 
 - if cannot? :create, Assignment
 	%h1 This will be the radio button form for normal student users to add locations and cohorts
+	- @assignments.each do |a|
+		= a.assignment_name

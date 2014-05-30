@@ -2,7 +2,9 @@ class AssignmentsController < ApplicationController
 	load_and_authorize_resource param_method: :assignment_params
 
 	def index
-		@assignments = Assignment.all
+		# @assignments = Assignment.all
+		@cohort = current_user.cohorts.first
+		@assignments = @cohort.assignments.all
 	end
 
 	def show
@@ -17,8 +19,10 @@ class AssignmentsController < ApplicationController
 	end
 
 	def create
-		@assignment = current_user.assignments.build(assignment_params)
+		@cohort = current_user.cohorts.first
+		@assignment = @cohort.assignments.build(assignment_params)
 		@assignment.save
+		redirect_to root_path
 	end
 
 	def new
