@@ -10,6 +10,6 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :submissions
   has_many :enrollments
-  has_many :cohorts, through: :enrollments
+  has_many :iyaclasses, through: :enrollments
 
 end

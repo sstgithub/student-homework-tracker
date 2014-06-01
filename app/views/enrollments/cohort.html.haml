@@ -1,0 +1,7 @@
+%h2 What is the name of your cohort?
+
+= form_for @enrollments do |f|
+	= f.label "Pick cohort"
+	= f.select :cohort_id, Location.find(@enrollment.location_id).cohorts.all.collect {|c| [(c.name) + "; starting: " + (c.start_date.strftime("%b, %M %Y")]}
+	%br
+	= f.submit

@@ -8,8 +8,20 @@ Rails.application.routes.draw do
 
   resources :assignments
 
-  resources :welcome
+  resources :welcome do
+    collection do
+      get :location
+      get :cohort
+    end
+  end
 
+  resources :enrollment do
+    collection do
+      get :location
+      get :cohort
+    end
+  end
+ 
   resources :cohort
 
   # Example of regular route:

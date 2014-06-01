@@ -1,0 +1,12 @@
+%h2 What cohort do you want to be associated with?
+
+/ = form_for @enrollment do |f|
+/ 	= f.text_field :user_id, value: current_user.id
+/ 	%br
+/ 	= f.label :iyaclass_id
+/ 	= f.text_field :iyaclass_id
+/ 	%br
+/ 	= f.label "Main, type true or false"
+/ 	= f.text_field :main
+/ 	%br
+/ 	= f.submit

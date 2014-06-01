@@ -1,0 +1,7 @@
+%h2 Where is your cohort located?
+
+= form_for @enrollment do |f|
+	= f.label "Pick city, state"
+	= f.select :location_id, Location.all.collect {|l| [(l.city) + ", " (l.state), l.id]}
+	%br
+	= f.submit

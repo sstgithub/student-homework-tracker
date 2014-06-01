@@ -1,6 +1,4 @@
 class Cohort < ActiveRecord::Base
-	belongs_to :location
-	has_many :enrollments
-	has_many :users, through: :enrollments
 	has_many :assignments
+	has_many :locations, through: :iyaclass
 end

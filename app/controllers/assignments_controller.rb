@@ -2,9 +2,12 @@ class AssignmentsController < ApplicationController
 	load_and_authorize_resource param_method: :assignment_params
 
 	def index
-		# @assignments = Assignment.all
-		@cohort = current_user.cohorts.first
-		@assignments = @cohort.assignments.all
+		## @assignments = Assignment.
+		# current_user.iyaclasses.each do |f|
+		# 	f.cohort_id
+		# end
+		# @cohort = current_user.cohorts.first Cohort.find(current_user.iyaclasses.cohort_id).name
+		# @assignments = @cohort.assignments.all 
 	end
 
 	def show

@@ -11,7 +11,23 @@
 		= f.label :end_date
 		= f.date_select :end_date
 		%br
+		= f.label "Select location of class"
+		= f.select #location collection here
+		%br
 		= f.submit
+
+/ 2 page form - first page has the location dropdown select, once first page is submitted, second page renders with cohort form with hidden field for current_user.locations.last.id (OR just locations.last.id if you dont join locations and users through enrollments but if you do that in an actual app someone might add location after someone else so what happens then?) cohort and its submitted then second page has location form which has a hidden field with current_user.cohorts.last.id that is saved to :cohort_id
+
+/ IGNORE ABOVE. 2 pages. First page just has location dropdown that ties into id. Second page has cohort dropdown that consists of Location.find()
+
+/ If enrollments table has location_id as well, with has_many through relation with users and locations like for users and cohorts: 
+// 
+
+///CHALLENGE: Have user select location or cohort and next page should give user only option of cohorts or location t
+
+///// locations has_many :cohorts, cohorts has_many :locations
+
+/// for admin: first page is locations dropdown. Second page saves cohort_id from cohorts dropdown to current_user.enrollments.last. Second page GENERATES this cohorts dropdown based on the location picked on the last page using Location.find(#{current_user.enrollments.last.location_id}).cohorts <-- this will give hash in array so you have to do .each do or .all collect or something and pass it into cohort_id. Second page will also ask if this is main cohort and change all other values to enrollment_ids with main:true for this id to false if true is selected.
 
 - if cannot? :create, Assignment
 	%h1 This will be the radio button form for normal student users to add locations and cohorts

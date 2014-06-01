@@ -1,5 +1,8 @@
-- @assignments.each do |a|
-	= link_to a.assignment_name, a
+/ - @assignments.each do |a|
+/ 	= link_to a.assignment_name, a
+
+/ - Cohort.find(current_user.enrollments.first.cohort_id).assignments.each do |a|
+/ 	= link_to a.assignment_name, a
 
 - if can? :create, Assignment
 	= form_for Assignment.new do |f|
