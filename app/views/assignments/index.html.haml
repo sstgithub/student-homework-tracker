@@ -1,15 +1,18 @@
-- @assignments.each do |a|
-	= link_to a.assignment_name, a
+- current_user.cohorts.each do |c|
+	- c.assignments.each do |a|
+		= link_to a.assignment_name, a
 
 - if can? :create, Assignment
-	= form_for Assignment.new do |f|
-		= f.label :assignment_name
-		= f.text_field :assignment_name
-		= f.label :description
-		= f.text_field :description
-		= f.label :due_date
-		= f.date_select :due_date
-		= f.submit
+	- if @cohort != nil
+		= form_for Assignment.new do |f| # make this not Assignment.new but auto linking to main cohort with hidden field :cohort_id that has value: @cohort.id (use text field first to see what cohort id comes up)
+			= f.hidden_field :cohort_id, value: @cohort.id
+			= f.label :assignment_name
+			= f.text_field :assignment_name
+			= f.label :description
+			= f.text_field :description
+			= f.label :due_date
+			= f.date_select :due_date
+			= f.submit
 
 
 - if cannot? :read, Assignment

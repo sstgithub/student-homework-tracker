@@ -8,7 +8,7 @@
 		= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city + ", " + Location.find(c.location_id).state), c.id]}
 		%br
 		= f.label "Will this be your main cohort (type true or false)?"
-		= f.text_field :main
+		= f.select :main, ([['Yes', true], ['No', false]])
 		%br
 		= f.submit
 
@@ -16,7 +16,7 @@
 	%h1 This will be the radio button form for normal student users to add locations and cohorts
 
 	= form_for @enrollment do |f|
-		= f.text_field :user_id, value: current_user.id
+		= f.hidden_field :user_id, value: current_user.id
 		%br
 		= f.label "Select your cohort"
 		= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city), c.id]}

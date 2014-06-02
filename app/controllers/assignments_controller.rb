@@ -1,10 +1,16 @@
 class AssignmentsController < ApplicationController
+
 	load_and_authorize_resource param_method: :assignment_params
 
 	def index
 		# @assignments = Assignment.all
-		@cohort = current_user.cohorts.first
-		@assignments = @cohort.assignments.all
+		@enrollment = current_user.enrollments.where(main: true).first
+		if @enrollment != nil
+			@cohort = Cohort.find(@enrollment.cohort_id)
+			if @cohort != nil
+				@assignments = @cohort.assignments.all
+			end
+		end
 	end
 
 	def show

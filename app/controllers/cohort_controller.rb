@@ -1,5 +1,6 @@
 class CohortController < ApplicationController
 	def index
+		@enrollment = Enrollment.new
 	end
 
 	def update

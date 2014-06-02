@@ -9,6 +9,7 @@ class Ability
         can :manage, :all
       elsif user.role == "normal"
         can :read, :all
+        can :create, Enrollment
       else
       end
     #

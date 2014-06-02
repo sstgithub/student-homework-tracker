@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
   	# if user.sign_in_count == 1
-  	if user.cohorts.first == nil
-  		cohort_index_path
+  	if user.enrollments.where(main: true).first == nil
+  		enrollments_path
   	else
-  		root_path
+  		assignments_path
   	end
   end
 
