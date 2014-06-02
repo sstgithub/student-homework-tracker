@@ -5,7 +5,8 @@
 	= @assignment.description
 %br
 %h3 
-	= @assignment.due_date.strftime("%b %d, %Y")
+	-if @assignment.due_date != nil
+		= @assignment.due_date.strftime("%b %d, %Y")
 
 - if can? :update, @assignment
 	= link_to "Update assignment", edit_assignment_path(@assignment)

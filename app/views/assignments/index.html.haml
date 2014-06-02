@@ -1,6 +1,26 @@
-- current_user.cohorts.each do |c|
-	- c.assignments.each do |a|
-		= link_to a.assignment_name, a
+- require 'bootstrap-sass'
+
+.container
+	%table.table.table-hover
+		%thead
+			%tr
+				%th= "Assignment name"
+				%th= "Description"
+				%th= "Due Date"
+		%tbody
+			- current_user.cohorts.each do |c|
+				- c.assignments.each do |a|
+					%tr
+						%td= link_to a.assignment_name, a
+						%td= a.description
+						-if a.due_date != nil
+							%td= a.due_date.strftime("%b %d, %Y")
+						-else
+							%td= "No record" #Put this in helper method like for todo_sevenhabits_app
+						-if cannot? :edit, Assignment
+							%td= Submission.where(assignment_id: a.id).where(user_id: current_user.id).first.status	
+						
+
 
 - if can? :create, Assignment
 	- if @cohort != nil
@@ -12,7 +32,10 @@
 			= f.text_field :description
 			= f.label :due_date
 			= f.date_select :due_date
-			= f.submit
+			.actions
+				.form-group
+					.col-lg-10.col-lg-offset-2
+						= f.submit
 
 
 - if cannot? :read, Assignment

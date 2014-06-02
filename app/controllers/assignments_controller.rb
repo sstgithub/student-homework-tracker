@@ -11,6 +11,12 @@ class AssignmentsController < ApplicationController
 				@assignments = @cohort.assignments.all
 			end
 		end
+		# current_user.cohorts.each do |c|
+		# 	c.assignments.each do |a|
+		# 		@a = a
+		# 		@submission = Submission.where(assignment_id: a.id)
+		# 	end
+		# end
 	end
 
 	def show
