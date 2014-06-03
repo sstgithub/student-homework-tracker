@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :enrollments
 
+  resources :submissions
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

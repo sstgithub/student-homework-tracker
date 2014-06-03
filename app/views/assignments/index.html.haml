@@ -7,6 +7,7 @@
 				%th= "Assignment name"
 				%th= "Description"
 				%th= "Due Date"
+				%th= "Your submission status"
 		%tbody
 			- current_user.cohorts.each do |c|
 				- c.assignments.each do |a|
@@ -18,7 +19,15 @@
 						-else
 							%td= "No record" #Put this in helper method like for todo_sevenhabits_app
 						-if cannot? :edit, Assignment
-							%td= Submission.where(assignment_id: a.id).where(user_id: current_user.id).first.status	
+							- @submission = Submission.where(assignment_id: a.id).where(user_id: current_user.id).first
+								- if @submission != nil
+								%td= link_to "#{@submission.status} on #{@submission.updated_at.strftime("%a (%b %d)")} at #{@submission.updated_at.strftime("%l:%M %p")}", @submission
+								/ - else
+								/ 	%td Not submitted yet!
+						/ - else
+						/ 	- @submissions = Submission.where(assignment_id: a.id)
+						/ 		- @submission.each do |f|
+						/ 			= f.user_id
 						
 
 

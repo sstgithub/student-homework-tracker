@@ -1,0 +1,30 @@
+.container
+	.col-md-5
+		%table.table
+			%thead
+				%tr
+					%th= Assignment.find(@submission.assignment_id).assignment_name.humanize
+			%tbody
+				%tr
+					%td
+						-if @submission.github_link != nil
+							%a{href: "#{@submission.github_link}"}Github link
+						-else
+							%b Github link not submitted!
+				%tr	
+					%td
+						-if @submission.heroku_link != nil
+							%a{href: "#{@submission.heroku_link}"}Heroku link
+						-else
+							%b Heroku link not submitted!
+				%tr
+					%td= "Submit time: #{@submission.created_at.strftime("%a (%b %d)")} at #{@submission.created_at.strftime("%l:%M %p")}"
+				%tr
+					%td= "Current status: #{@submission.status}"
+				%tr
+					%td= "Status updated time: #{@submission.updated_at.strftime("%a (%b %d)")} at #{@submission.updated_at.strftime("%l:%M %p")}"
+
+					
+.container
+	- unless @submission.status == "New"
+		=button_to "Edit", edit_submission_path(@submission), method: :get

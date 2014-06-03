@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601185547) do
+ActiveRecord::Schema.define(version: 20140602212426) do
 
   create_table "assignments", force: true do |t|
     t.string   "assignment_name"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20140601185547) do
     t.string   "github_link"
     t.string   "heroku_link"
     t.integer  "user_id"
-    t.string   "status"
+    t.string   "status",        default: "New"
     t.integer  "assignment_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -44,3 +44,9 @@ gem "letter_opener", group: :development
 gem 'devise'
 
 gem 'cancancan', '~> 1.8'
+
+group :test do
+	gem 'rspec-rails'
+	gem 'capybara'
+	gem 'factory_girl_rails'
+end

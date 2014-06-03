@@ -1,0 +1,6 @@
+= form_for @submission do |s|
+	= s.text_field :assignment_id, @assignment.id
+	= s.label :github_link
+	= s.text_field :github_link
+	%br
+	= s.submit
