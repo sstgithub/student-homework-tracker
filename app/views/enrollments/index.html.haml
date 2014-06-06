@@ -6,11 +6,9 @@
 	= f.label "Select your cohort"
 	= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city + ", " + Location.find(c.location_id).state), c.id]}
 	%br
-	- if current_user.role == "Admin"
+	- if current_user.role == "admin"
 		= f.label "Will this be your main cohort?"
 		= f.select :main, ([['Yes', true], ['No', false]])
-		%br
-		= f.submit
 	- else
 		%br
 		= f.hidden_field :main, value: true
