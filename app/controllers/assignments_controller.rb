@@ -21,6 +21,7 @@ class AssignmentsController < ApplicationController
 
 	def show
 		@assignment = Assignment.find(params[:id])
+		@submission = Submission.where(user_id: current_user.id, assignment_id: @assignment.id)
 	end
 
 	def edit
@@ -38,6 +39,12 @@ class AssignmentsController < ApplicationController
 	end
 
 	def new
+	end
+
+	def destroy
+		@assignment = Assignment.find(params[:id])
+		@assignment.destroy
+		redirect_to root_path
 	end
 
 	private

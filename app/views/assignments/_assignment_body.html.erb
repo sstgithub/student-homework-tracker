@@ -1,0 +1,29 @@
+<tbody>
+<%- current_user.cohorts.each do |c| %>
+				<%- c.assignments.each do |a| %>
+					<tr>
+						<td><%= link_to a.assignment_name, a %></td>
+						<%- if a.description != nil %>
+							<td><%= a.description %></td>
+						<%- else %>
+							<td>No description</td>
+						<%- end %>
+						<%- if a.due_date != nil %>
+							<td><%= a.due_date.strftime("%b %d, %Y") %></td>
+						<%- else %>
+							<td>No record</td>
+						<%- end %>
+						<%- if cannot? :edit, Assignment %>
+							<%- @submission = Submission.where(assignment_id: a.id).where(user_id: current_user.id).first %>
+								<%- if @submission != nil %>
+									<td><%= link_to "#{@submission.status} on #{@submission.updated_at.strftime("%a (%b %d)")} at #{@submission.updated_at.strftime("%l:%M %p")}", @submission %></td>
+								<%- else %>
+									<td><%= link_to "Not submitted yet!", a %></td>
+								<%- end %>
+						<%- else %>
+							<%- @submissions = Submission.where(assignment_id: a.id) %>
+								<td>Submissions: <%= @submissions.count %></td>
+						<%- end %>
+				<%- end %>
+			<%- end %>
+		</tbody>

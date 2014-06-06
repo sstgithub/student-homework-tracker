@@ -7,27 +7,10 @@
 				%th= "Assignment name"
 				%th= "Description"
 				%th= "Due Date"
-				%th= "Your submission status"
+				- if cannot? :edit, Assignment
+					%th= "Your submission status"
 		%tbody
-			- current_user.cohorts.each do |c|
-				- c.assignments.each do |a|
-					%tr
-						%td= link_to a.assignment_name, a
-						%td= a.description
-						-if a.due_date != nil
-							%td= a.due_date.strftime("%b %d, %Y")
-						-else
-							%td= "No record" #Put this in helper method like for todo_sevenhabits_app
-						-if cannot? :edit, Assignment
-							- @submission = Submission.where(assignment_id: a.id).where(user_id: current_user.id).first
-								- if @submission != nil
-								%td= link_to "#{@submission.status} on #{@submission.updated_at.strftime("%a (%b %d)")} at #{@submission.updated_at.strftime("%l:%M %p")}", @submission
-								/ - else
-								/ 	%td Not submitted yet!
-						/ - else
-						/ 	- @submissions = Submission.where(assignment_id: a.id)
-						/ 		- @submission.each do |f|
-						/ 			= f.user_id
+			= render partial: 'assignment_body'
 						
 
 
@@ -37,14 +20,15 @@
 			= f.hidden_field :cohort_id, value: @cohort.id
 			= f.label :assignment_name
 			= f.text_field :assignment_name
+			%br
 			= f.label :description
-			= f.text_field :description
+			= f.text_area :description
+			%br
 			= f.label :due_date
 			= f.date_select :due_date
 			.actions
 				.form-group
-					.col-lg-10.col-lg-offset-2
-						= f.submit
+					= f.submit
 
 
 - if cannot? :read, Assignment

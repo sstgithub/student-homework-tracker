@@ -26,5 +26,5 @@
 
 					
 .container
-	- unless @submission.status == "New"
+	- unless @submission.status == "Reviewing" || @submission.status == "Completed"
 		=button_to "Edit", edit_submission_path(@submission), method: :get

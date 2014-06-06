@@ -20,9 +20,13 @@ class SubmissionsController < ApplicationController
 	def update
 		@submission = Submission.find(params[:id])
 		@submission.update_attributes(submission_params)
+		redirect_to '/assignments'
 	end
 
 	def create
+		@submission = Submission.new(submission_params)
+		@submission.save
+		redirect_to '/assignments'
 	end
 
 	private

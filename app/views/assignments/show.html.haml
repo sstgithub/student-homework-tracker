@@ -9,7 +9,7 @@
 		= @assignment.due_date.strftime("%b %d, %Y")
 
 - if can? :create, Submission
-	- if Submission.where(user_id: current_user.id, assignment_id: @assignment.id).first == nil
+	- if @submission.first == nil
 		= form_for Submission.new do |s|
 			= s.hidden_field :user_id, value: current_user.id
 			= s.hidden_field :assignment_id, value: @assignment.id
@@ -18,10 +18,17 @@
 			%br
 			= s.submit
 	- else
-		= link_to "Edit homework submission", edit_submission_path(Submission.where(user_id: current_user.id, assignment_id: @assignment.id).first)
+		= link_to "Edit homework submission", edit_submission_path(@submission.first)
+- elsif can? :update, @assignment
+	%h3 Submissions:
+	- Submission.where(assignment_id: @assignment.id).each do |s|
+		%ol
+			= link_to "#{User.find(s.user_id).email} on #{s.created_at.strftime("%a (%b %d)")} at #{s.created_at.strftime("%l:%M %p")}", submission_path(s)
+		%br
 
 - if can? :update, @assignment
 	= link_to "Update assignment", edit_assignment_path(@assignment)
 
 - if can? :destroy, @assignment
-	= link_to "Delete assignment", assignment_path(@assignment), method: :delete
+	- if Submission.where(assignment_id: @assignment.id).count == 0
+		= link_to "Delete assignment", assignment_path(@assignment), method: :delete
