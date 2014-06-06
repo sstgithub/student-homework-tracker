@@ -11,6 +11,7 @@ class SubmissionsController < ApplicationController
 
 	def show
 		@submission = Submission.find(params[:id])
+		@new_comment = @submission.comments.build
 	end
 
 	def edit

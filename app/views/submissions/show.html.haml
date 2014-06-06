@@ -23,8 +23,47 @@
 					%td= "Current status: #{@submission.status}"
 				%tr
 					%td= "Status updated time: #{@submission.updated_at.strftime("%a (%b %d)")} at #{@submission.updated_at.strftime("%l:%M %p")}"
+				%tr
+					%td
+						- Comment.where(commentable_type: "Submission", commentable_id: @submission.comments.first.id).each do |e|
+							- if e.created_at != nil
+								= "& #{User.find(4).email} && #{current_user.email.slice(0...(current_user.email.index('@')))} [#{e.created_at.strftime("%a (%b %d)")} at #{e.created_at.strftime("%l:%M %p")}]: #{e.content}"
+							%br
+
+.container
+	.col-md-5
+		- if cannot? :edit, Assignment
+			-if can? :edit, Submission
+				- unless @submission.status == "Reviewing" || @submission.status == "Completed"
+					=button_to "Edit", edit_submission_path(@submission), method: :get
+
+.container
+	.col-md-5
+		- if can? :edit, Assignment
+			= form_for @submission do |s|
+				= s.select :status, status_type.each {|a| a.humanize}
+				= s.submit "Edit submission status"
+				%br
+				%br
+				%br
+
+.container
+	.col-md-5
+		= form_for @new_comment do |c|
+			= c.hidden_field :commentable_id, value: @new_comment.commentable_id
+			= c.hidden_field :commentable_type, value: @new_comment.commentable_type
+			= c.text_field :user_id, value: current_user.id
+			= c.text_area :content
+			%br
+			= c.submit "Leave a comment"
+			%br
+			%br
 
 					
-.container
-	- unless @submission.status == "Reviewing" || @submission.status == "Completed"
-		=button_to "Edit", edit_submission_path(@submission), method: :get
+
+
+
+
+
+
+

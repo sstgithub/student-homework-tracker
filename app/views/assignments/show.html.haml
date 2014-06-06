@@ -18,7 +18,7 @@
 			%br
 			= s.submit
 	- else
-		= link_to "Edit homework submission", edit_submission_path(@submission.first)
+		= link_to "Submitted on #{@submission.first.created_at.strftime("%a (%b %d)")} at #{@submission.first.created_at.strftime("%l:%M %p")}", submission_path(@submission.first)
 - elsif can? :update, @assignment
 	%h3 Submissions:
 	- Submission.where(assignment_id: @assignment.id).each do |s|

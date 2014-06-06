@@ -29,13 +29,3 @@
 			.actions
 				.form-group
 					= f.submit
-
-
-- if cannot? :read, Assignment
-	= link_to "Register now!", new_user_registration_path
-%br
-- if cannot? :read, Assignment
-	= link_to "Sign in", new_user_session_path
-%br
-- if can? :read, Assignment
-	= link_to "Sign out", destroy_user_session_path, method: :delete
