@@ -1,26 +1,18 @@
--if can? :create, Assignment
-	%h2 Enroll!
+%h2 Enroll!
 
-	= form_for @enrollment do |f|
-		= f.hidden_field :user_id, value: current_user.id
-		%br
-		= f.label "Select your cohort"
-		= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city + ", " + Location.find(c.location_id).state), c.id]}
-		%br
-		= f.label "Will this be your main cohort (type true or false)?"
+= form_for @enrollment do |f|
+	= f.hidden_field :user_id, value: current_user.id
+	%br
+	= f.label "Select your cohort"
+	= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city + ", " + Location.find(c.location_id).state), c.id]}
+	%br
+	- if current_user.role == "Admin"
+		= f.label "Will this be your main cohort?"
 		= f.select :main, ([['Yes', true], ['No', false]])
 		%br
 		= f.submit
-
-- if cannot? :create, Assignment
-	%h2 Enroll!
-
-	= form_for @enrollment do |f|
-		= f.hidden_field :user_id, value: current_user.id
-		%br
-		= f.label "Select your cohort"
-		= f.select :cohort_id, Cohort.all.collect {|c| [(c.name + " in " + Location.find(c.location_id).city), c.id]}
+	- else
 		%br
 		= f.hidden_field :main, value: true
-		%br
+	%br
 		= f.submit
