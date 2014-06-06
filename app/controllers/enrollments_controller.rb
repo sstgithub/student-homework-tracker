@@ -8,7 +8,11 @@ class EnrollmentsController < ApplicationController
 
 	def create
 		@enrollment = current_user.enrollments.build(enrollment_params)
-		@enrollment.save
+		if @enrollment.save
+			redirect_to root_path
+		else
+			redirect_to :back
+		end
 	end
 
 	def edit
