@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@cohort = current_user.cohorts.build(params[params.require(:cohort).permit!])
+		@cohort = current_user.cohorts.build(cohort_params)
 	end
 
 	private
